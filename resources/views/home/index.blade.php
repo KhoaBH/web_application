@@ -1,118 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-   @include('home.css')
+    @include('home.css')
 </head>
+
 <body>
-<div class="hero_area">
-    @include('home.header')
 
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </div>
-<!-- end hero area -->
+<!-- ***** Preloader End ***** -->
 
-<!-- shop section -->
+<!-- Header -->
+@include('home.header')
 
-@include('home.product')
-
-<!-- end shop section -->
-<!-- contact section -->
-<br><br><br>
-<!-- end contact section -->
-<!-- info section -->
-<section class="info_section  layout_padding2-top">
-    <div class="social_container">
-        <div class="social_box">
-            <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-            </a>
-            <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-            </a>
-            <a href="">
-                <i class="fa fa-youtube" aria-hidden="true"></i>
-            </a>
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-01">
+            <div class="text-content">
+                <h4>Best Offer</h4>
+                <h2>New Arrivals On Sale</h2>
+            </div>
+        </div>
+        <div class="banner-item-02">
+            <div class="text-content">
+                <h4>Flash Deals</h4>
+                <h2>Get your best products</h2>
+            </div>
+        </div>
+        <div class="banner-item-03">
+            <div class="text-content">
+                <h4>Last Minute</h4>
+                <h2>Grab last minute deals</h2>
+            </div>
         </div>
     </div>
-    <div class="info_container ">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-3">
-                    <h6>
-                        ABOUT US
-                    </h6>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
-                    </p>
+</div>
+<!-- Banner Ends Here -->
+
+@include('home.product')
+<div class="best-features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>About Sixteen Clothing</h2>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="info_form ">
-                        <h5>
-                            Newsletter
-                        </h5>
-                        <form action="#">
-                            <input type="email" placeholder="Enter your email">
-                            <button>
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="left-content" style="font-family: 'Montserrat', sans-serif;">
+                    <h4>Tìm kiếm những sản phẩm chất lượng?</h4>
+                    <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">Prime Picks</a> Nơi tụ hội những sản phẩm tinh túy nhất! <br>Hãy để Prime Picks trở thành đối tác mua sắm tin cậy của bạn, nơi mang đến những sản phẩm tinh túy và dịch vụ xuất sắc nhất!</p>
+                    <ul class="featured-list">
+                        <li><a href="#">Chất lượng đỉnh cao</a></li>
+                        <li><a href="#">Sự đa dạng</a></li>
+                        <li><a href="#">Giá cả hợp lý</a></li>
+                        <li><a href="#">Dịch vụ khách hàng tận tâm</a></li>
+                    </ul>
+                    <a href="about.html" class="filled-button">Read More</a>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <h6>
-                        NEED HELP
-                    </h6>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
-                    </p>
+            </div>
+            <div class="col-md-6">
+                <div class="right-image">
+                    <img src="assets/images/feature-image.jpg" alt="">
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <h6>
-                        CONTACT US
-                    </h6>
-                    <div class="info_link-box">
-                        <a href="">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <span> Gb road 123 london Uk </span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                            <span>+01 12345678901</span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <span> demo@gmail.com</span>
-                        </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="call-to-action">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>Creative &amp; Unique <em>Prime</em> Picks</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque corporis amet elite author nulla.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" class="filled-button">Purchase Now</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- footer section -->
-    <footer class=" footer_section">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Web Tech Knowledge</a>
-            </p>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner-content">
+                    <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+                        - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+                </div>
+            </div>
         </div>
-    </footer>
-    <!-- footer section -->
-
-</section>
-
-<!-- end info section -->
-
-
-<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.js')}}"></script>
-<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js')}}">
-</script>
-<script src="{{asset('js/custom.js')}}"></script>
-
+    </div>
+</footer>
 </body>
-
+@include('home.js')
 </html>

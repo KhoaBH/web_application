@@ -1,25 +1,14 @@
-<!-- Basic -->
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<!-- Site Metas -->
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-<title>
-    Giftos
-</title>
+<title>Sixteen Clothing HTML Template</title>
 
-<!-- slider stylesheet -->
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-
-<!-- bootstrap core css -->
-<link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}" />
-
-<!-- Custom styles for this template -->
-<link href="{{asset('css/style.css')}}" rel="stylesheet" />
-<!-- responsive style -->
-<link href="{{asset('css/responsive.css')}}" rel="stylesheet" />
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/fontawesome.css">
+<link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
+<link rel="stylesheet" href="assets/css/owl.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMINyW45fYntpHEv2n5vE7sF4Cf/2v8Idkxyiq" crossorigin="anonymous">
