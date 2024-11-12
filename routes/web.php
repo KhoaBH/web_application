@@ -32,5 +32,6 @@ Route::get('/add_category', function () {
 })->name('admin.category');
 Route::get('/add_category', [AdminController::class,'add_category_view'])->name('admin.category');
 Route::post('/add_category', [AdminController::class,'add_category'])->name('add_category.post');
+Route::get('/delete_category/{id}', [AdminController::class, 'delete_category'])->name('admin.delete_category');
 
 require __DIR__.'/auth.php';

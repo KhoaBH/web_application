@@ -18,7 +18,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <table class="table">
+    <table class="table" style="color: white">
         <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
@@ -28,23 +28,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td><button>Xin chào</button></td>
+        @foreach($data as $data)
+            <tr>
+                <th scope="row">{{$data->id}}</th>
+                <td>{{$data->name}}</td>
+                <td>{{$data->description}}</td>
+                <td><a href="{{ url('delete_category', $data->id) }}" class="btn btn-danger">Xóa</a></td>
 
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-        </tr>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </div>

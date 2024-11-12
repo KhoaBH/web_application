@@ -7,7 +7,16 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     function add_category_view(){
-        return view('admin.category');
+        $data = Category::all();
+        return view('admin.category',compact('data'));
+    }
+    function delete_category($id){
+        $data = Category::find($id);
+        toastr()->addSuccess('Xóa danh mục: ' . $data->name . ' thành công!!');
+
+        $data->delete();
+
+        return redirect()->back();
     }
     function add_category(Request $request)
     {
