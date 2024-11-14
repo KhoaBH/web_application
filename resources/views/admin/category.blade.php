@@ -7,7 +7,7 @@
 <div class="container-scroller">
     @include('admin.sidebar')
     @include('admin.header')
-    @include('admin.body')
+    @include('admin.category_body')
 <!-- container-scroller -->
 <!-- plugins:js -->
 @include('admin.js')

@@ -1,11 +1,50 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Product;
+use Carbon\Carbon;
 use App\Models\Category;
 use Illuminate\Http\Request;
 class AdminController extends Controller
 {
+    function add_product(Request $request){
+        $image = $request->image;
+        if($image){
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $request->image->move('products',$image_name);
+        }
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' =>$request->price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category,
+            'image' => $image_name,
+        ];
+
+        // Tạo sản phẩm mới
+        $product = Product::create($data);
+        toastr()->addSuccess('Successful!!!');
+        return redirect()->back();
+    }
+
+    function product(){
+        $category = Category::all();
+        return view('admin.product',compact('category'));
+    }
+
+    function edit_category($data){
+        $decodedData = json_decode(urldecode($data), true);
+        $id = $decodedData[0];
+        $name = $decodedData[1];
+        $description = $decodedData[2];
+        $category = Category::find($id);
+        $category->name = $name;
+        $category->description = $description;
+        $category->save();
+        toastr()->addSuccess('Successful!!!');
+        return redirect()->back();
+    }
     function add_category_view(){
         $data = Category::all();
         return view('admin.category',compact('data'));
@@ -25,7 +64,6 @@ class AdminController extends Controller
             'name' => 'required|string|max:255', // Tên sản phẩm là bắt buộc
             'description' => 'nullable|string', // Mô tả có thể null
         ]);
-
         // Lưu dữ liệu vào mảng để tạo sản phẩm
         $data = [
             'name' => $request->name,
@@ -33,9 +71,9 @@ class AdminController extends Controller
         ];
 
         // Tạo sản phẩm mới
-        $product = Category::create($data);
+        $category = Category::create($data);
 
-        if (!$product) {
+        if (!$category) {
             return redirect()->route('product.create')->with('error', 'Product creation not successful');
         }
         toastr()->addSuccess('Thêm danh mục thành công');
