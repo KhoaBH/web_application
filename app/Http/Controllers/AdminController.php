@@ -7,6 +7,10 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 class AdminController extends Controller
 {
+    function view_product(){
+        $products = Product::paginate(3);
+        return view('admin.view_product',compact('products'));
+    }
     function add_product(Request $request){
         $image = $request->image;
         if($image){
@@ -28,7 +32,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    function product(){
+    function add_product_view(){
         $category = Category::all();
         return view('admin.product',compact('category'));
     }
