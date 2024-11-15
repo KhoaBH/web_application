@@ -13,6 +13,14 @@
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
+    <form action="{{ route('admin.selected_category') }}" method = 'get' style="width:60%;; margin-top:30px">
+        <div class="d-flex" >
+            <input name='search' class="form-control mr-2" type="search" placeholder="Search" aria-label="Search" style="width:20%;color:white">
+            <input type="submit" href="{{ url('selected_category') }}" class="btn btn-secondary d-flex align-items-center justify-content-center" value="Search">
+        </div>
+    </form>
+
+
     <table class="table " style="color: white; width:60%">
         <thead class="thead-light">
         <tr>

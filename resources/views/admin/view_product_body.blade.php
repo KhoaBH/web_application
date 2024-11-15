@@ -26,19 +26,46 @@
                                 <div class="mt-2">
                                     <a href="" class="btn btn-success">Edit</a>
                                     <a href="" class="btn btn-danger">Delete</a>
-                                    <a href="" class="btn btn-danger"> Restock </a>
+                                    <a href="" class="btn btn-primary" style="margin-left:45px"> Restock </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
-            {{$products->links()}}
+            <div class="pagination">
+                {{$products->links()}}
+            </div>
+
         </div>
     </div>
 </div>
 
 <style>
+    /*Pagination*/
+    /* Thay đổi màu nền và chữ của nút phân trang */
+    .pagination{
+        align-self: center;
+        justify-self: center;
+    }
+    .pagination .page-item .page-link {
+        color: #ffffff;           /* Màu chữ */
+        background-color: transparent; /* Màu nền */
+        border-color: #dbdddf;    /* Màu viền */
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #fc424a; /* Màu nền cho trang hiện tại */
+        border-color: #fafafa;     /* Màu viền cho trang hiện tại */
+        color: #ffffff;            /* Màu chữ cho trang hiện tại */
+    }
+
+    .pagination .page-item:hover .page-link {
+        background-color: #ffffff; /* Màu nền khi hover */
+        border-color: #ffffff;
+        color:black;/* Màu viền khi hover */
+    }
+
     /* Product Card */
     .product-card {
 

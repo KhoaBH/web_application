@@ -53,6 +53,15 @@ class AdminController extends Controller
         $data = Category::all();
         return view('admin.category',compact('data'));
     }
+    function selected_category(Request $request) {
+        $search = $request->search;
+
+        // Sử dụng get() thay vì all() để lấy kết quả từ truy vấn
+        $data = Category::where('name', 'LIKE', '%' . $search . '%')->get();
+
+        return view('admin.category', compact('data'));
+    }
+
     function delete_category($id){
         $data = Category::find($id);
         toastr()->addSuccess('Xóa danh mục: ' . $data->name . ' thành công!!');
