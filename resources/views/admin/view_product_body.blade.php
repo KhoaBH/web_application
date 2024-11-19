@@ -8,10 +8,11 @@
                 @foreach($products as $product)
                     <div class="col-md-4">
                         <div class="product-card" id="{{$product->id}}">
-                            <div class="product-card-img">
-                                <label class="stock bg-success">In Stock</label>
-                                <img src="products/{{$product->image}}" alt="Laptop" style="height:200px;border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                            <div class="product-card-img" style="position: relative; overflow: hidden; height: 200px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                <label class="stock bg-success" style="position: absolute; top: 10px; left: 10px;">In Stock</label>
+                                <img src="products/{{$product->image}}" alt="Laptop" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                             </div>
+
                             <div style="display:none">
                                 <a>{{$product->description}}</a>
                             </div>
@@ -27,7 +28,7 @@
                                     <span class="original-price" style="color:white;">{{$product->price}}</span>
                                 </div>
                                 <div class="mt-2">
-                                    <a  class="btn btn-success" onclick="edit_product(this)" data-id="{{$product->id}}" data-name="{{$product->name}}" data-price="{{$product->price}}" data-quantity="{{$product->quantity}}" data-description="{{$product->description}}" data-image="{{$product->image}}">Edit</a>
+                                    <a  class="btn btn-success" onclick="edit_product(this)" data-category="{{$product->category_id}}" data-id="{{$product->id}}" data-name="{{$product->name}}" data-price="{{$product->price}}" data-quantity="{{$product->quantity}}" data-description="{{$product->description}}" data-image="{{$product->image}}">Edit</a>
                                     <a href="{{ url('delete_product', $product->id) }}" class="btn btn-danger">Delete</a>
                                     <a href="" class="btn btn-primary" style="margin-left:45px"> Restock </a>
                                 </div>
@@ -139,13 +140,19 @@
 </style>
 
 <script>
+    document.querySelector('select[name="category"]').value = "2";
     async function edit_product(element) {
+        const categories = @json($category);
         const productId = element.getAttribute("data-id");
         const productName = element.getAttribute("data-name");
         const productPrice = element.getAttribute("data-price");
         const productQuantity = element.getAttribute("data-quantity");
         const productDescription = element.getAttribute("data-description");
-        const productImage = element.getAttribute("data-image");
+        const category_id = element.getAttribute("data-category");
+        let optionsHtml = ``;
+        categories.forEach(cat => {
+            optionsHtml += `<option value="${cat.id}" ${cat.id == category_id ? 'selected' : ''}>${cat.name}</option>`;
+        });
         const { value: formValues, isConfirmed } = await Swal.fire({
             title: "<h5 style='color:#151313; font-size: 35px'>Edit product</h5>",
             html: `
@@ -157,6 +164,10 @@
         <input id="swal-input3" class="swal2-input" placeholder="" value="${productPrice}" style="background-color:white;color:black;">
         <label style="color:black">Quantity</label>
         <input id="swal-input4" class="swal2-input" placeholder="" value="${productQuantity}" style="background-color:white;color:black;">
+        <label for="select_page">Category</label>
+        <select id="select_page" style="width:200px;" class="operator" name="category">
+                ${optionsHtml}
+        </select>
         <label style="color:black">Image</label>
         <input id="swal-input5" class="swal2-input" placeholder="" type="file" style="background-color:white;color:black;">
     `,
@@ -171,7 +182,7 @@
                 const price = document.getElementById("swal-input3").value;
                 const quantity = document.getElementById("swal-input4").value;
                 const image = document.getElementById("swal-input5").files[0]; // Sử dụng .files[0] để lấy file thực tế
-
+                const category_id = document.getElementById("select_page").value;
                 // Tạo FormData để gửi yêu cầu
                 const formData = new FormData();
                 formData.append('productId', productId);
@@ -179,12 +190,11 @@
                 formData.append('description', description);
                 formData.append('price', price);
                 formData.append('quantity', quantity);
-
-                // Nếu có file ảnh, thêm vào FormData
+                formData.append('category_id', category_id);
+                console.log(category_id);
                 if (image) {
                     formData.append('image', image);
                 }
-
                 // Gửi yêu cầu AJAX (hoặc sử dụng fetch)
                 formData.forEach((value, key) => {
                     console.log(`${key}: ${value}`);
@@ -199,6 +209,5 @@
         });
         const url = `{{ route('admin.product')}}`;
         window.location.href = url;
-
     }
 </script>

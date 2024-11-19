@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     function view_product(){
-        $products = Product::paginate(3);
-        return view('admin.view_product',compact('products'));
+        $products = Product::paginate(6);
+        $category = Category::all();
+        return view('admin.view_product',compact('products','category'));
     }
     function add_product(Request $request){
         $image = $request->image;
@@ -109,7 +110,8 @@ class AdminController extends Controller
         $description = $request->input('description');
         $price = $request->input('price');
         $quantity = $request->input('quantity');
-        if (empty($name) || empty($price) || empty($quantity)) {
+        $category_id = $request->input('category_id');
+        if (empty($name) || empty($price) || empty($quantity)|| empty($category_id)) {
             return response()->json(['success' => false, 'message' => 'Missing required fields'], 400);
         }
         $product = Product::find($productId);
@@ -128,6 +130,7 @@ class AdminController extends Controller
         $product->description = $description;
         $product->price = $price;
         $product->quantity = $quantity;
+        $product->category_id = $category_id;
         $product->save();
 
     }
