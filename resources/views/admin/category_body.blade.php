@@ -56,9 +56,9 @@
             title: "<h5 style='color:#151313; font-size: 35px'>Edit category</h5>",
             html: `
         <label style="color:black">Name</label>
-        <input id="swal-input1" class="swal2-input" placeholder="${name}" style="background-color:white;color:black;">
+        <input id="swal-input1" class="swal2-input" placeholder="${name}" value="${name}" style="background-color:white;color:black;">
         <label style="color:black">Description</label>
-        <input id="swal-input2" class="swal2-input" placeholder="${description}" style="background-color:white;color:black;">
+        <input id="swal-input2" class="swal2-input" placeholder="${description}" value="${description}" style="background-color:white;color:black;">
     `,
             focusConfirm: false,
             background: "white",

@@ -12,6 +12,9 @@
                                 <label class="stock bg-success">In Stock</label>
                                 <img src="products/{{$product->image}}" alt="Laptop" style="height:200px;border-top-left-radius: 20px; border-top-right-radius: 20px;">
                             </div>
+                            <div style="display:none">
+                                <a>{{$product->description}}</a>
+                            </div>
                             <div class="product-card-body">
                                 <p class="product-brand" style="color:white;">Số lượng: {{$product->quantity}}</p>
                                 <h5 class="product-name">
@@ -24,8 +27,8 @@
                                     <span class="original-price" style="color:white;">{{$product->price}}</span>
                                 </div>
                                 <div class="mt-2">
-                                    <a href="" class="btn btn-success">Edit</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
+                                    <a  class="btn btn-success" onclick="edit_product(this)" data-id="{{$product->id}}" data-name="{{$product->name}}" data-price="{{$product->price}}" data-quantity="{{$product->quantity}}" data-description="{{$product->description}}" data-image="{{$product->image}}">Edit</a>
+                                    <a href="{{ url('delete_product', $product->id) }}" class="btn btn-danger">Delete</a>
                                     <a href="" class="btn btn-primary" style="margin-left:45px"> Restock </a>
                                 </div>
                             </div>
@@ -135,4 +138,60 @@
     /* Product Card End */
 </style>
 
+<script>
+    async function edit_product(element) {
+        const productId = element.getAttribute("data-id");
+        const productName = element.getAttribute("data-name");
+        const productPrice = element.getAttribute("data-price");
+        const productQuantity = element.getAttribute("data-quantity");
+        const productDescription = element.getAttribute("data-description");
+        const productImage = element.getAttribute("data-image");
 
+        console.log("Product ID:", productId);
+        console.log("Product Name:", productName);
+        console.log("Product Price:", productPrice);
+        console.log("Product Quantity:", productQuantity);
+        console.log("product Description:", productDescription);
+        console.log("product Image:", productImage.split('\\').pop().split('/').pop());
+
+        const { value: formValues, isConfirmed } = await Swal.fire({
+            title: "<h5 style='color:#151313; font-size: 35px'>Edit product</h5>",
+            html: `
+        <label style="color:black">Name</label>
+        <input id="swal-input1" class="swal2-input" placeholder="" value="${productName}" style="background-color:white;color:black;">
+        <label style="color:black">Description</label>
+        <input id="swal-input2" class="swal2-input" placeholder="" value="${productDescription}" style="background-color:white;color:black;">
+        <label style="color:black">Price</label>
+        <input id="swal-input3" class="swal2-input" placeholder="" value="${productPrice}" style="background-color:white;color:black;">
+        <label style="color:black">Quantity</label>
+        <input id="swal-input4" class="swal2-input" placeholder="" value="${productQuantity}" style="background-color:white;color:black;">
+        <label style="color:black">Image</label>
+        <input id="swal-input5" class="swal2-input" placeholder="" type="file"  style="background-color:white;color:black;">
+    `,
+            focusConfirm: false,
+            background: "white",
+            showCancelButton: true,  // Hiển thị nút "Cancel"
+            confirmButtonText: "Save",
+            cancelButtonText: "Cancel",
+            preConfirm: () => {
+                return [
+                    productId,
+                    document.getElementById("swal-input1").value,
+                    document.getElementById("swal-input2").value,
+                    document.getElementById("swal-input3").value,
+                    document.getElementById("swal-input4").value,
+                    document.getElementById("swal-input5").value.split('\\').pop().split('/').pop()
+                ];
+            }
+        });
+
+        if (isConfirmed && formValues) {
+            const data = encodeURIComponent(JSON.stringify(formValues));
+            const url = `{{ route('admin.edit_product', ['data' => ':data']) }}`.replace(':data', data);
+            window.location.href = url;
+        } else {
+            // Xử lý khi người dùng nhấn "Cancel", nếu cần
+            console.log("User cancelled the edit.");
+        }
+    }
+</script>

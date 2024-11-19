@@ -13,6 +13,7 @@ class AdminController extends Controller
     }
     function add_product(Request $request){
         $image = $request->image;
+        dd( $image);
         if($image){
             $image_name = time() . '.' . $image->getClientOriginalExtension();
             $request->image->move('products',$image_name);
@@ -90,6 +91,40 @@ class AdminController extends Controller
             return redirect()->route('product.create')->with('error', 'Product creation not successful');
         }
         toastr()->addSuccess('Thêm danh mục thành công');
+        return redirect()->back();
+    }
+
+    function delete_product($id){
+        $data = Product::find($id);
+        toastr()->addSuccess('Xóa danh mục: ' . $data->name . ' thành công!!');
+
+        $data->delete();
+
+        return redirect()->back();
+    }
+
+    function edit_product($data){
+        $decodedData = json_decode(urldecode($data), true);
+        $id = $decodedData[0];
+        $name = $decodedData[1];
+        $description = $decodedData[2];
+        $price = $decodedData[3];
+        $quantity = $decodedData[4];
+        $image = $decodedData[5];
+
+        if($image){
+            $image_name = time() . '.' . pathinfo($image, PATHINFO_EXTENSION);;
+            $image->move('products', $image_name); 
+            $product->image = $image_name;
+        }
+        $product = Product::find($id);
+        $product->name = $name;
+        $product->description = $description;
+        $product->price = $price;
+        $product->quantity = $quantity;
+        $product->image = $image_name;
+        $product->save();
+        toastr()->addSuccess('Successful!!!');
         return redirect()->back();
     }
 }
