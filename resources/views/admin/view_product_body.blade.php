@@ -146,14 +146,6 @@
         const productQuantity = element.getAttribute("data-quantity");
         const productDescription = element.getAttribute("data-description");
         const productImage = element.getAttribute("data-image");
-
-        console.log("Product ID:", productId);
-        console.log("Product Name:", productName);
-        console.log("Product Price:", productPrice);
-        console.log("Product Quantity:", productQuantity);
-        console.log("product Description:", productDescription);
-        console.log("product Image:", productImage.split('\\').pop().split('/').pop());
-
         const { value: formValues, isConfirmed } = await Swal.fire({
             title: "<h5 style='color:#151313; font-size: 35px'>Edit product</h5>",
             html: `
@@ -166,7 +158,7 @@
         <label style="color:black">Quantity</label>
         <input id="swal-input4" class="swal2-input" placeholder="" value="${productQuantity}" style="background-color:white;color:black;">
         <label style="color:black">Image</label>
-        <input id="swal-input5" class="swal2-input" placeholder="" type="file"  style="background-color:white;color:black;">
+        <input id="swal-input5" class="swal2-input" placeholder="" type="file" style="background-color:white;color:black;">
     `,
             focusConfirm: false,
             background: "white",
@@ -174,24 +166,39 @@
             confirmButtonText: "Save",
             cancelButtonText: "Cancel",
             preConfirm: () => {
-                return [
-                    productId,
-                    document.getElementById("swal-input1").value,
-                    document.getElementById("swal-input2").value,
-                    document.getElementById("swal-input3").value,
-                    document.getElementById("swal-input4").value,
-                    document.getElementById("swal-input5").value.split('\\').pop().split('/').pop()
-                ];
+                const name = document.getElementById("swal-input1").value;
+                const description = document.getElementById("swal-input2").value;
+                const price = document.getElementById("swal-input3").value;
+                const quantity = document.getElementById("swal-input4").value;
+                const image = document.getElementById("swal-input5").files[0]; // Sử dụng .files[0] để lấy file thực tế
+
+                // Tạo FormData để gửi yêu cầu
+                const formData = new FormData();
+                formData.append('productId', productId);
+                formData.append('name', name);
+                formData.append('description', description);
+                formData.append('price', price);
+                formData.append('quantity', quantity);
+
+                // Nếu có file ảnh, thêm vào FormData
+                if (image) {
+                    formData.append('image', image);
+                }
+
+                // Gửi yêu cầu AJAX (hoặc sử dụng fetch)
+                formData.forEach((value, key) => {
+                    console.log(`${key}: ${value}`);
+                });
+                return axios.post("{{ route('admin.edit_product') }}", formData)
+                    .then(response => {
+                        console.log(response.data);
+                    }).catch(error => {
+                        console.error(error);
+                    });
             }
         });
+        const url = `{{ route('admin.product')}}`;
+        window.location.href = url;
 
-        if (isConfirmed && formValues) {
-            const data = encodeURIComponent(JSON.stringify(formValues));
-            const url = `{{ route('admin.edit_product', ['data' => ':data']) }}`.replace(':data', data);
-            window.location.href = url;
-        } else {
-            // Xử lý khi người dùng nhấn "Cancel", nếu cần
-            console.log("User cancelled the edit.");
-        }
     }
 </script>

@@ -13,7 +13,6 @@ class AdminController extends Controller
     }
     function add_product(Request $request){
         $image = $request->image;
-        dd( $image);
         if($image){
             $image_name = time() . '.' . $image->getClientOriginalExtension();
             $request->image->move('products',$image_name);
@@ -103,28 +102,34 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    function edit_product($data){
-        $decodedData = json_decode(urldecode($data), true);
-        $id = $decodedData[0];
-        $name = $decodedData[1];
-        $description = $decodedData[2];
-        $price = $decodedData[3];
-        $quantity = $decodedData[4];
-        $image = $decodedData[5];
-
-        if($image){
-            $image_name = time() . '.' . pathinfo($image, PATHINFO_EXTENSION);;
-            $image->move('products', $image_name); 
-            $product->image = $image_name;
+    public function editProduct(Request $request)
+    {
+        $productId = $request->input('productId');
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $price = $request->input('price');
+        $quantity = $request->input('quantity');
+        if (empty($name) || empty($price) || empty($quantity)) {
+            return response()->json(['success' => false, 'message' => 'Missing required fields'], 400);
         }
-        $product = Product::find($id);
+        $product = Product::find($productId);
+        if (!$product) {
+            return response()->json(['success' => false, 'message' => 'Product not found'], 404);
+        }
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            if($image){
+                $image_name = time() . '.' . $image->getClientOriginalExtension();
+                $request->image->move('products',$image_name);
+                $product->image = $image_name;
+            }
+        }
         $product->name = $name;
         $product->description = $description;
         $product->price = $price;
         $product->quantity = $quantity;
-        $product->image = $image_name;
         $product->save();
-        toastr()->addSuccess('Successful!!!');
-        return redirect()->back();
+
     }
+
 }
