@@ -17,7 +17,7 @@ class CheckUserRole
     public function handle($request, Closure $next)
     {
         if ($request->user() && $request->user()->user_type != 'admin') {
-            return redirect()->intended(route('dashboard')); // Chuyển hướng người không phải admin về trang chủ
+            return redirect()->intended(route('home')); // Chuyển hướng người không phải admin về trang chủ
         }
 
         return $next($request);

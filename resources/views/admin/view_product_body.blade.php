@@ -137,6 +137,9 @@
         margin-top: 10px;
     }
     /* Product Card End */
+    label{
+        color:black;
+    }
 </style>
 
 <script>
@@ -162,12 +165,11 @@
         <input id="swal-input2" class="swal2-input" placeholder="" value="${productDescription}" style="background-color:white;color:black;">
         <label style="color:black">Price</label>
         <input id="swal-input3" class="swal2-input" placeholder="" value="${productPrice}" style="background-color:white;color:black;">
-        <label style="color:black">Quantity</label>
-        <input id="swal-input4" class="swal2-input" placeholder="" value="${productQuantity}" style="background-color:white;color:black;">
         <label for="select_page">Category</label>
-        <select id="select_page" style="width:200px;" class="operator" name="category">
+        <select id="select_page" style="width:200px;" class="operator" name="category"><br>
+        <label for="select_page" style="color:black">Category</label>
                 ${optionsHtml}
-        </select>
+        </select><br><br>
         <label style="color:black">Image</label>
         <input id="swal-input5" class="swal2-input" placeholder="" type="file" style="background-color:white;color:black;">
     `,
@@ -180,7 +182,6 @@
                 const name = document.getElementById("swal-input1").value;
                 const description = document.getElementById("swal-input2").value;
                 const price = document.getElementById("swal-input3").value;
-                const quantity = document.getElementById("swal-input4").value;
                 const image = document.getElementById("swal-input5").files[0]; // Sử dụng .files[0] để lấy file thực tế
                 const category_id = document.getElementById("select_page").value;
                 // Tạo FormData để gửi yêu cầu
@@ -189,7 +190,6 @@
                 formData.append('name', name);
                 formData.append('description', description);
                 formData.append('price', price);
-                formData.append('quantity', quantity);
                 formData.append('category_id', category_id);
                 console.log(category_id);
                 if (image) {
@@ -201,13 +201,26 @@
                 });
                 return axios.post("{{ route('admin.edit_product') }}", formData)
                     .then(response => {
-                        console.log(response.data);
+                        Swal.fire({
+                            title: "Edit!",
+                            text: "Your work has been saved",
+                            icon: "success",
+                            color:"#000000",
+                            background:"white",
+                        }).then((next_result) =>{
+                            if(next_result.isConfirmed){
+                                const url = `{{ route('admin.product')}}`;
+                                window.location.href = url;
+                            }
+                        });
                     }).catch(error => {
                         console.error(error);
                     });
+
+
             }
+
         });
-        const url = `{{ route('admin.product')}}`;
-        window.location.href = url;
+
     }
 </script>

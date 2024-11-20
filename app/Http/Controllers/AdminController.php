@@ -109,9 +109,8 @@ class AdminController extends Controller
         $name = $request->input('name');
         $description = $request->input('description');
         $price = $request->input('price');
-        $quantity = $request->input('quantity');
         $category_id = $request->input('category_id');
-        if (empty($name) || empty($price) || empty($quantity)|| empty($category_id)) {
+        if (empty($name) || empty($price) || empty($category_id)) {
             return response()->json(['success' => false, 'message' => 'Missing required fields'], 400);
         }
         $product = Product::find($productId);
@@ -129,10 +128,9 @@ class AdminController extends Controller
         $product->name = $name;
         $product->description = $description;
         $product->price = $price;
-        $product->quantity = $quantity;
         $product->category_id = $category_id;
         $product->save();
-
+        toastr()->addSuccess('Successful!!!');
     }
 
 }
