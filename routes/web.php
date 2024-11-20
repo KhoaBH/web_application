@@ -15,15 +15,8 @@ use App\Http\Middleware\CheckUserRole;
 | contains the "web" middleware group. Now create something great!
 */
 
-Route::get('/', [HomeController::class,'home'])->name('home');
+Route::get('/home', [HomeController::class,'home'])->name('home');
 Route::get('/logout', [HomeController::class,'logout'])->name('logout');
-
-
-Route::get('/home', function () {
-    return view('home.index');
-})->name('home');
-
-
 Route::get('/dashboard', function () {
     return view('admin.index');
 })->name('admin.dashboard')->middleware([CheckUserRole::class]);
@@ -41,6 +34,6 @@ Route::get('/view_product', [AdminController::class, 'view_product'])->name('adm
 Route::get('/selected_category', [AdminController::class, 'selected_category'])->name('admin.selected_category')->middleware([CheckUserRole::class]);
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product'])->name('admin.delete_product')->middleware([CheckUserRole::class]);
 Route::post('/edit_product', [AdminController::class, 'editProduct'])->name('admin.edit_product')->middleware([CheckUserRole::class]);
-
+Route::get('/product_detail/{id}', [HomeController::class, 'view_product_detail'])->name('home.product');
 
 require __DIR__.'/auth.php';

@@ -22,6 +22,9 @@
 
 
 <style>
+    body {
+        font-family: 'Arial', sans-serif;
+    }
     .main-panel{
         margin-top: 10px;
         display:flex;
