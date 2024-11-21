@@ -2,15 +2,33 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Carbon\Carbon;
 use App\Models\Category;
 use Illuminate\Http\Request;
 class AdminController extends Controller
 {
+    function sub_category_view(){
+        $data = SubCategory::all();
+        $category  = Category::all();
+        return view('admin.category.sub_category',compact('data','category'));
+    }
+    function add_sub_category($data){
+        $decodedData = json_decode($data, true);
+        $name = $decodedData[0] ?? null; // Gán phần tử đầu tiên
+        $description = $decodedData[1] ?? null; // Gán phần tử thứ hai
+        $parent_id = $decodedData[2] ?? null;
+        $subCategory = new SubCategory();
+        $subCategory->category_id = $parent_id;
+        $subCategory->name = $name;
+        $subCategory->description = $description;
+        $subCategory->save();
+        return redirect()->back();
+    }
     function view_product(){
         $products = Product::paginate(6);
         $category = Category::all();
-        return view('admin.view_product',compact('products','category'));
+        return view('admin.product.view_product',compact('products','category'));
     }
     function add_product(Request $request){
         $image = $request->image;
@@ -35,7 +53,7 @@ class AdminController extends Controller
 
     function add_product_view(){
         $category = Category::all();
-        return view('admin.product',compact('category'));
+        return view('admin.product.product',compact('category'));
     }
 
     function edit_category($data){
@@ -52,15 +70,13 @@ class AdminController extends Controller
     }
     function add_category_view(){
         $data = Category::all();
-        return view('admin.category',compact('data'));
+        return view('admin.category.category',compact('data'));
     }
     function selected_category(Request $request) {
         $search = $request->search;
-
         // Sử dụng get() thay vì all() để lấy kết quả từ truy vấn
         $data = Category::where('name', 'LIKE', '%' . $search . '%')->get();
-
-        return view('admin.category', compact('data'));
+        return view('admin.category.category', compact('data'));
     }
 
     function delete_category($id){

@@ -20,6 +20,7 @@ class CheckUserRole
             return redirect()->intended(route('home')); // Chuyển hướng người không phải admin về trang chủ
         }
 
+
         return $next($request);
     }
 }

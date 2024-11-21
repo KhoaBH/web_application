@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="position:fixed">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="index.html"><img src="admin/assets/images/logo.svg" alt="logo" /></a>
-        <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="admin/assets/images/logo-mini.svg" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="/home"><img src="admin/assets/images/logo.svg" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo-mini" href="/home"><img src="admin/assets/images/logo-mini.svg" alt="logo" /></a>
     </div>
     <ul class="nav">
         <li class="nav-item profile">
@@ -65,28 +65,42 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{url('/category')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-laptop"></i>
-              </span>
+            <a class="nav-link" data-bs-toggle="collapse" href="#auth2" aria-expanded="false" aria-controls="auth2">
+        <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+        </span>
                 <span class="menu-title">Category</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="auth2">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('category_view') ? 'active' : '' }}" href="/category_view">Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('sub_category') ? 'active' : '' }}" href="/sub_category">Sub Category</a>
+                    </li>
+                </ul>
+
+            </div>
         </li>
+
         <li class="nav-item menu-items">
-            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <span class="menu-icon">
-                <i class="mdi mdi-package-variant"></i>
-              </span>
+            <a class="nav-link" data-bs-toggle="collapse" href="#auth3" aria-expanded="false" aria-controls="auth3">
+        <span class="menu-icon">
+            <i class="mdi mdi-package-variant"></i>
+        </span>
                 <span class="menu-title">Products</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth">
+            <div class="collapse" id="auth3">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/add_product"> Add Product</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/view_product"> Products </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/add_product">Add Product</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/view_product">Products</a></li>
                 </ul>
             </div>
         </li>
+
         <li class="nav-item menu-items">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <span class="menu-icon">

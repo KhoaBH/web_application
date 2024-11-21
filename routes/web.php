@@ -24,10 +24,16 @@ Route::get('/dashboard', function () {
 Route::get('/add_category', function () {
     return view('admin.category');
 })->name('admin.category')->middleware([CheckUserRole::class]);
-Route::get('/category', [AdminController::class,'add_category_view'])->name('admin.category')->middleware([CheckUserRole::class]);
+Route::get('/category_view', [AdminController::class,'add_category_view'])->name('admin.category')->middleware([CheckUserRole::class]);
 Route::post('/category', [AdminController::class,'add_category'])->name('add_category.post')->middleware([CheckUserRole::class]);
+Route::get('/sub_category', [AdminController::class,'sub_category_view'])->name('admin.sub_category')->middleware([CheckUserRole::class]);
+Route::get('/add_sub_category/{data}', [AdminController::class,'add_sub_category'])->name('admin.add_sub_category')->middleware([CheckUserRole::class]);
 Route::get('/delete_category/{id}', [AdminController::class, 'delete_category'])->name('admin.delete_category')->middleware([CheckUserRole::class]);
 Route::get('/edit_category/{data}', [AdminController::class, 'edit_category'])->name('admin.edit_category')->middleware([CheckUserRole::class]);
+
+
+
+
 Route::get('/add_product', [AdminController::class, 'add_product_view'])->name('admin.product')->middleware([CheckUserRole::class]);
 Route::post('/add_product', [AdminController::class, 'add_product'])->name('add_product.post')->middleware([CheckUserRole::class]);
 Route::get('/view_product', [AdminController::class, 'view_product'])->name('admin.product')->middleware([CheckUserRole::class]);
