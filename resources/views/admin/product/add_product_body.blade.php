@@ -22,7 +22,7 @@
             <label for="select_page">Category</label>
             <select id="select_page" style="width:200px;" class="operator" name="category">
                 <option>Select Category</option>
-            @foreach($category as $cat)
+            @foreach($SubCategory as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                 @endforeach
             </select>

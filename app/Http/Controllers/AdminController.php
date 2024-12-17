@@ -8,10 +8,32 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 class AdminController extends Controller
 {
+    function sub_category_edit($data){
+        $decodedData = json_decode($data, true);
+        $id=$decodedData[0];
+        $name = $decodedData[1] ?? null; // Gán phần tử đầu tiên
+        $description = $decodedData[2] ?? null; // Gán phần tử thứ hai
+        $parent_id = $decodedData[3] ?? null;
+        $subCategory = SubCategory::find($id);
+
+        $subCategory->category_id = $parent_id;
+        $subCategory->name = $name;
+        $subCategory->description = $description;
+        $subCategory->save();
+        toastr()->addSuccess('Your work has been save!!');
+        return redirect()->back();
+    }
+    function sub_category_delete($id){
+        $data = SubCategory::find($id);
+        toastr()->addSuccess('Deleted: ' . $data->name . ' Successful!!');
+        $data->delete();
+        return redirect()->back();
+    }
     function sub_category_view(){
         $data = SubCategory::all();
-        $category  = Category::all();
-        return view('admin.category.sub_category',compact('data','category'));
+        $categories = Category::all()->pluck('name', 'id'); // Lấy danh sách các category theo id
+        $category = Category::all();
+        return view('admin.category.sub_category', compact('data', 'categories','category'));
     }
     function add_sub_category($data){
         $decodedData = json_decode($data, true);
@@ -27,7 +49,7 @@ class AdminController extends Controller
     }
     function view_product(){
         $products = Product::paginate(6);
-        $category = Category::all();
+        $category = SubCategory::all();
         return view('admin.product.view_product',compact('products','category'));
     }
     function add_product(Request $request){
@@ -52,8 +74,8 @@ class AdminController extends Controller
     }
 
     function add_product_view(){
-        $category = Category::all();
-        return view('admin.product.product',compact('category'));
+        $SubCategory = SubCategory::all();
+        return view('admin.product.product',compact('SubCategory'));
     }
 
     function edit_category($data){
