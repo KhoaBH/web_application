@@ -44,12 +44,16 @@
                     <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
-
-                    <x-button class="ml-4">
+                <div class="flex flex-col items-center justify-end mt-4">
+                    <div class="w-full flex justify-between items-center">
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                            {{ __('Register as Seller!!') }}
+                        </a>
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                            {{ __('Already registered?') }}
+                        </a>
+                    </div>
+                    <x-button class="mt-4 text-lg">
                         {{ __('Register') }}
                     </x-button>
                 </div>

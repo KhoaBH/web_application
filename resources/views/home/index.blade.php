@@ -3,6 +3,8 @@
 
 <head>
     @include('home.css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body>
@@ -52,18 +54,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-heading">
-                    <h2>About Sixteen Clothing</h2>
+                    <h2>About Prime Picks</h2>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="left-content" style="font-family: 'Montserrat', sans-serif;">
-                    <h4>Tìm kiếm những sản phẩm chất lượng?</h4>
-                    <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">Prime Picks</a> Nơi tụ hội những sản phẩm tinh túy nhất! <br>Hãy để Prime Picks trở thành đối tác mua sắm tin cậy của bạn, nơi mang đến những sản phẩm tinh túy và dịch vụ xuất sắc nhất!</p>
+                    <h4>Looking for Quality Products?</h4>
+                    <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">Prime Picks</a> is the place to find the finest products! <br>Let Prime Picks be your trusted shopping partner, offering the best products and excellent services!</p>
                     <ul class="featured-list">
-                        <li><a href="#">Chất lượng đỉnh cao</a></li>
-                        <li><a href="#">Sự đa dạng</a></li>
-                        <li><a href="#">Giá cả hợp lý</a></li>
-                        <li><a href="#">Dịch vụ khách hàng tận tâm</a></li>
+                        <li><a href="#">Top Quality</a></li>
+                        <li><a href="#">Variety</a></li>
+                        <li><a href="#">Affordable Prices</a></li>
+                        <li><a href="#">Customer Service Excellence</a></li>
                     </ul>
                     <a href="about.html" class="filled-button">Read More</a>
                 </div>
@@ -77,32 +79,36 @@
     </div>
 </div>
 
-<div class="call-to-action">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="inner-content">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h4>Creative &amp; Unique <em>Prime</em> Picks</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque corporis amet elite author nulla.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="#" class="filled-button">Purchase Now</a>
+@if (Auth::check())
+    @if(Auth::user()->user_type!="Seller")
+        <div class="call-to-action">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="inner-content">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4>Creative &amp; Unique <em>Prime</em> Picks</h4>
+                                    <p>Become a seller on Prime Picks and connect with millions of customers globally. List your products on a trusted platform with powerful tools to help grow your business and expand your reach.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{ url('/seller_register') }}" class="filled-button">Join Prime Picks</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    @endif
+@endif
 <footer>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="inner-content">
-                    <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
-                        - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+                    <p>Copyright &copy; 2024 Prime Picks Co., Ltd.
+                        - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">KHOADAUBU</a></p>
                 </div>
             </div>
         </div>

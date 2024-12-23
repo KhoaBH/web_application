@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
+use App\Models\Seller;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
 {
     function sub_category_edit($data){
@@ -53,6 +56,7 @@ class AdminController extends Controller
         return view('admin.product.view_product',compact('products','category'));
     }
     function add_product(Request $request){
+        $seller = Seller::where('user_id', Auth::user()->id)->first();
         $image = $request->image;
         if($image){
             $image_name = time() . '.' . $image->getClientOriginalExtension();
@@ -65,6 +69,7 @@ class AdminController extends Controller
             'quantity' => $request->quantity,
             'category_id' => $request->category,
             'image' => $image_name,
+            'seller_id' =>$seller->id ,
         ];
 
         // Tạo sản phẩm mới

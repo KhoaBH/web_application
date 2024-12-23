@@ -12,7 +12,7 @@
                         <span class="count bg-success"></span>
                     </div>
                     <div class="profile-name">
-                        <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                        <h5 class="mb-0 font-weight-normal">{{Auth::user()->name}}</h5>
                         <span>Gold Member</span>
                     </div>
                 </div>
@@ -64,27 +64,28 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-bs-toggle="collapse" href="#auth2" aria-expanded="false" aria-controls="auth2">
+        @if(Auth::user()->user_type=="admin")
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-bs-toggle="collapse" href="#auth2" aria-expanded="false" aria-controls="auth2">
         <span class="menu-icon">
             <i class="mdi mdi-laptop"></i>
         </span>
-                <span class="menu-title">Category</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth2">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('category_view') ? 'active' : '' }}" href="/category_view">Category</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('sub_category') ? 'active' : '' }}" href="/sub_category">Sub Category</a>
-                    </li>
-                </ul>
+                    <span class="menu-title">Category</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="auth2">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('category_view') ? 'active' : '' }}" href="/category_view">Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('sub_category') ? 'active' : '' }}" href="/sub_category">Sub Category</a>
+                        </li>
+                    </ul>
 
-            </div>
-        </li>
-
+                </div>
+            </li>
+        @endif
         <li class="nav-item menu-items">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth3" aria-expanded="false" aria-controls="auth3">
         <span class="menu-icon">

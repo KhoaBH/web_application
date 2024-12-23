@@ -14,6 +14,13 @@ use App\Http\Middleware\CheckUserRole;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 */
+Route::get('/test', function () {
+    return view('test');
+});
+
+
+
+Route::get('/', function () { return redirect('/home'); });
 
 Route::get('/home', [HomeController::class,'home'])->name('home');
 Route::get('/logout', [HomeController::class,'logout'])->name('logout');
@@ -53,5 +60,14 @@ Route::get('/selected_category', [AdminController::class, 'selected_category'])-
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product'])->name('admin.delete_product')->middleware([CheckUserRole::class]);
 Route::post('/edit_product', [AdminController::class, 'editProduct'])->name('admin.edit_product')->middleware([CheckUserRole::class]);
 Route::get('/product_detail/{id}', [HomeController::class, 'view_product_detail'])->name('home.product');
+
+
+
+//seller
+Route::get('/seller_register', [HomeController::class, 'showSellerRegisterForm']);
+Route::post('/seller_register', [HomeController::class, 'registerSeller'])->name('seller_register.post');
+//cart
+Route::post('/add-to-cart', [HomeController::class, 'addToCart'])->name('seller_register.post');
+Route::get('/cart', [HomeController::class,'Cart'])->name('Cart');
 
 require __DIR__.'/auth.php';

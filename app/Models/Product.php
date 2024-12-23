@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    // App\Models\Product.php
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
     protected $fillable = [
         'name',
         'description',
@@ -15,6 +20,7 @@ class Product extends Model
         'price',
         'description',
         'category_id',
-        'image'
+        'image',
+        'seller_id'
     ];
 }
