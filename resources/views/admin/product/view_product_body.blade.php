@@ -9,7 +9,11 @@
                     <div class="col-md-4">
                         <div class="product-card" id="{{$product->id}}">
                             <div class="product-card-img" style="position: relative; overflow: hidden; height: 200px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                                <label class="stock bg-success" style="position: absolute; top: 10px; left: 10px;">In Stock</label>
+                                @if($product->quantity>0)
+                                    <label class="stock bg-success">In Stock</label>
+                                @else
+                                    <label class="stock bg-danger">Out of Stock</label>
+                                @endif
                                 <img src="products/{{$product->image}}" alt="Laptop" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                             </div>
 
@@ -24,13 +28,13 @@
                                     </a>
                                 </h5>
                                 <div>
-                                    <span class="selling-price" style="color:white;">{{$product->price}}</span>
-                                    <span class="original-price" style="color:white;">{{$product->price}}</span>
+                                    <span class="selling-price" style="color:white;">${{$product->discounted_price}}</span>
+                                    <span class="original-price" style="color:white;">${{$product->price}}</span>
                                 </div>
                                 <div class="mt-2">
                                     <a  class="btn btn-success" onclick="edit_product(this)" data-category="{{$product->category_id}}" data-id="{{$product->id}}" data-name="{{$product->name}}" data-price="{{$product->price}}" data-quantity="{{$product->quantity}}" data-description="{{$product->description}}" data-image="{{$product->image}}">Edit</a>
                                     <a href="{{ url('delete_product', $product->id) }}" class="btn btn-danger">Delete</a>
-                                    <a href="" class="btn btn-primary" style="margin-left:45px"> Restock </a>
+                                    <a  class="btn btn-primary" onclick="Restock(this)" data-product-id="{{$product->id}}" style="margin-left:25px"> Restock </a>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +48,6 @@
         </div>
     </div>
 </div>
-
 <style>
     /*Pagination*/
     /* Thay đổi màu nền và chữ của nút phân trang */
@@ -143,6 +146,55 @@
 </style>
 
 <script>
+    async function Restock(button) {
+        var productid = button.getAttribute('data-product-id');
+        const { value: number } = await Swal.fire({
+            title: "<h5 style='color:#151313; font-size: 35px '>Restock product?</h5>",
+            input: "number",
+            inputLabel: "Your number",
+            inputPlaceholder: "Enter a number",
+            background: 'white',
+            inputAttributes: {
+                min: 0, // Optional: Set minimum value
+                step: 1 // Optional: Set step value
+            },
+            customClass: {
+                input: 'white-input'
+            }
+        });
+
+        if (number) {
+            // Make the AJAX call after getting the input value
+            $.ajax({
+                url: '{{route('restock')}}',  // URL to the restock route
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // CSRF token
+                    productId: productid,
+                    number: number // Send the entered number
+                },
+                success: function(response) {
+                    console.log("Response from server:", response);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Restock successful',
+                        text: response.message // Display the response message
+                    }).then(() => {
+                        // Reload the page after the success message is shown
+                        location.reload();
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error from server:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Restock failed',
+                        text: 'There was an error restocking the product.'
+                    });
+                }
+            });
+        }
+    }
     document.querySelector('select[name="category"]').value = "2";
     async function edit_product(element) {
         const categories = @json($category);

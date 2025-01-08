@@ -3,6 +3,7 @@
 
 <head>
     @include('home.css')
+    @include('home.js')
     <style>
 
     </style>
@@ -37,7 +38,11 @@
                 <div class="product-view">
                     <h4 class="product-name">
                         {{$product->name}}
-                        <label class="label-stock bg-success">In Stock</label>
+                        @if($product->quantity>0)
+                            <label class="label-stock bg-success">In Stock</label>
+                        @else
+                            <label class="label-stock bg-danger">Out of Stock</label>
+                        @endif
                     </h4>
 
                     <hr>
@@ -45,8 +50,8 @@
                         Home / Category / Product / HP Laptop
                     </p>
                     <div>
-                        <span class="selling-price">$399</span>
-                        <span class="original-price">$499</span>
+                        <span class="selling-price">${{$product->discounted_price}}</span>
+                        <span class="original-price">${{$product->price}}</span>
                     </div>
                     <div class="mt-2">
                         <div class="input-group">
@@ -56,13 +61,13 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                        <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                        <a href="javascript:void(0);" class="btn btn1 addToCartBtn" data-product-id="{{$product->id}}">Add To Cart</a>
                         <a href="" class="btn btn1"> <i class="fa fa-heart"></i> Add To Wishlist </a>
                     </div>
                     <div class="mt-3">
                         <h5 class="mb-0">Product Detail</h5>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty
+                            {{$product->description}}
                         </p>
                     </div>
                 </div>
@@ -78,30 +83,33 @@
                 <h2>Related Products</h2>
             </div>
         </div>
-        @foreach($products as $product)
-            <div class="col-md-3">
+        @foreach($products as $item)
+            <div class="col-md-3" id="{{$item->id}}">
                 <div class="product-card">
-                    <div class="product-card-img" onclick="window.location='{{ url('product_detail', $product->id) }}';" style="height:120px;border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                        <label class="stock bg-success">In Stock</label>
-                        <img  src="{{ asset('products/'.$product->image)}}" alt="Laptop">
+                    <div class="product-card-img" onclick="window.location='{{ url('product_detail', $item->id) }}';" style="height:220px; border-top-left-radius: 15px; border-top-right-radius: 15px; overflow: hidden;">
+                        @if($product->quantity>0)
+                            <label class="stock bg-success">In Stock</label>
+                        @else
+                            <label class="stock bg-danger">Out of Stock</label>
+                        @endif
+                        <img src="/products/{{$item->image}}" alt="Laptop" class="product-image">
                     </div>
+
                     <div class="product-card-body">
                         <p class="product-brand">HP</p>
-                        <p class="product-quantity">{{$product->quantity}}</p>
+                        <p class="product-quantity">{{$item->quantity}}</p>
                         <h5 class="product-name">
-                            <a href="">
-                                {{$product->name}}
-                            </a>
+                            <a href="">{{ $item->name }}</a>
                         </h5>
                         <div>
-                            <span class="selling-price">{{$product->price}}</span>
-                            <span class="original-price">{{$product->price}}</span>
+                            <span class="selling-price">${{$item->discounted_price}}</span>
+                            <span class="original-price">${{$item->price}}</span>
                         </div>
-                        <!--div class="mt-2">
-                            <a href="" class="btn btn1">Add To Cart</a>
+                        <div class="mt-2">
+                            <a href="javascript:void(0);" class="btn btn1 addToCartBtn" data-product-id="{{$item->id}}">Add To Cart</a>
                             <a href="" class="btn btn1"> <i class="fa fa-heart"></i> </a>
-                            <a href="" class="btn btn1"> View </a>
-                        </div-->
+                            <a href="{{ url('product_detail', $item->id) }}" class="btn btn1"> View </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,5 +162,20 @@
     </div>
 </footer>
 </body>
-@include('home.js')
+<style>
+    .product-card-img {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        overflow: hidden;
+    }
+
+    .product-card-img img.product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Hoặc sử dụng 'object-fit: contain;' nếu bạn muốn giữ tỉ lệ của hình ảnh */
+    }
+</style>
 </html>

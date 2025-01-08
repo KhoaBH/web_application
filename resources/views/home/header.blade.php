@@ -8,12 +8,12 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{URL::asset('index.html')}}">Home
-                            <span class="sr-only">(current)</span>
+                        <a class="nav-link" href="{{ route('home') }}">Home
+
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{URL::asset('products.html')}}">Our Products</a>
+                        <a class="nav-link"href="{{ route('products') }}">Our Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/cart') }}">

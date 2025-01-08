@@ -4,6 +4,10 @@
 <meta name="author" content="">
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 <link rel="icon" href="{{ asset('Images/favicon.png') }}" type="image/x-icon">
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>
 <title>Prime Picks</title>
 
 <!-- Bootstrap core CSS -->
@@ -13,6 +17,10 @@
 <link rel="stylesheet" href="{{URL::asset('assets/css/owl.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"  crossorigin="anonymous">
 <style>
+    * {
+        font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    }
     /* Product Card */
     .product-card {
         cursor: pointer;

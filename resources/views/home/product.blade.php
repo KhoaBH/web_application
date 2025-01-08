@@ -1,10 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Toastr CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<!-- Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <div class="latest-products">
     <div class="container">
         <div class="row">
@@ -18,19 +12,23 @@
                 <div class="col-md-3" id="{{$product->id}}">
                     <div class="product-card">
                         <div class="product-card-img" onclick="window.location='{{ url('product_detail', $product->id) }}';" style="height:220px; border-top-left-radius: 15px; border-top-right-radius: 15px; overflow: hidden;">
+                            @if($product->quantity>0)
                             <label class="stock bg-success">In Stock</label>
+                            @else
+                                <label class="stock bg-danger">Out of Stock</label>
+                            @endif
                             <img src="products/{{$product->image}}" alt="Laptop" class="product-image">
                         </div>
 
                         <div class="product-card-body">
-                            <p class="product-brand">HP</p>
+                            <p class="product-brand">{{$product->business_name}}</p>
                             <p class="product-quantity">{{$product->quantity}}</p>
                             <h5 class="product-name">
                                 <a href="">{{ $product->name }}</a>
                             </h5>
                             <div>
-                                <span class="selling-price">{{$product->price}}</span>
-                                <span class="original-price">{{$product->price}}</span>
+                                <span class="selling-price">${{$product->discounted_price}}</span>
+                                <span class="original-price">${{$product->price}}</span>
                             </div>
                             <div class="mt-2">
                                 <a href="javascript:void(0);" class="btn btn1 addToCartBtn" data-product-id="{{$product->id}}">Add To Cart</a>

@@ -24,9 +24,7 @@ Route::get('/', function () { return redirect('/home'); });
 
 Route::get('/home', [HomeController::class,'home'])->name('home');
 Route::get('/logout', [HomeController::class,'logout'])->name('logout');
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->name('admin.dashboard')->middleware([CheckUserRole::class]);
+Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
 Route::get('/add_category', function () {
     return view('admin.category');
@@ -67,7 +65,19 @@ Route::get('/product_detail/{id}', [HomeController::class, 'view_product_detail'
 Route::get('/seller_register', [HomeController::class, 'showSellerRegisterForm']);
 Route::post('/seller_register', [HomeController::class, 'registerSeller'])->name('seller_register.post');
 //cart
-Route::post('/add-to-cart', [HomeController::class, 'addToCart'])->name('seller_register.post');
+Route::post('/add-to-cart', [HomeController::class, 'addToCart']);
 Route::get('/cart', [HomeController::class,'Cart'])->name('Cart');
+Route::post('/remove-from-cart', [HomeController::class, 'removeFromCart']);
+Route::post('/checkout', [HomeController::class,'checkout'])->name('checkout');
+//profile
+Route::get('/profile', [HomeController::class,'profile'])->name('profile');
+Route::post('/confirm', [HomeController::class,'confirm_delivery'])->name('confirm_delivery');
+//shop
+Route::get('/products123', [HomeController::class,'showAllProducts'])->name('products');
+Route::get('/ordersConfirmation', [AdminController::class,'ordersConfirmation_view'])->name('ordersConfirmation.view');
+
+Route::post('/ordersConfirmation', [AdminController::class,'ordersConfirmation'])->name('ordersConfirmation');
+Route::get('/search_products', [HomeController::class, 'search_products'])->name('search_products');
+Route::post('/restock', [AdminController::class,'restock'])->name('restock');
 
 require __DIR__.'/auth.php';
